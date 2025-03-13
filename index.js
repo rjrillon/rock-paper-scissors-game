@@ -25,4 +25,12 @@ function getComputerChoice() {
   }
 }
 
-console.log(getComputerChoice());
+function getHumanChoice() {
+  let choice = prompt("Rock, paper, or scissors?", "");
+  console.log("Your choice: " + choice);
+
+  return choice;
+}
+
+//console.log(getComputerChoice());
+console.log(getHumanChoice());
