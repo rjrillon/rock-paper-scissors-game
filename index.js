@@ -6,10 +6,15 @@
 // Repeat with updated score and round.
 
 // Psuedocode:
-// Write function to get computer choice
+// Write function to get random computer choice
 // Write function to get user choice
-// Declare players score variables
+// - Ensure user enters a valid choice
 // Write function to play rounds
+// - Include tie/win/lose functionality
+// - Increment & display scores accordingly
+// Write playGame function
+// - Play rounds until one player reaches 3 points
+// - Inform user of final score and who won
 
 function getComputerChoice() {
   let random = Math.floor(Math.random() * 3);
@@ -50,25 +55,22 @@ function playGame() {
   let humanScore = 0;
 
   function playRound(humanChoice, computerChoice) {
-    // Convert user input to lowercase
-    let userChoice = humanChoice.toLowerCase();
-
     // Play round
-    if (userChoice === computerChoice) {
-      console.log("It's a tie! Both chose " + userChoice);
+    if (humanChoice === computerChoice) {
+      console.log("It's a tie! Both chose " + humanChoice);
       // No points awarded for tie so return to avoid incrementing scores
       return;
-    } else if (userChoice === "rock" && computerChoice === "scissors") {
-      console.log("You win! " + userChoice + " beats " + computerChoice + "!");
+    } else if (humanChoice === "rock" && computerChoice === "scissors") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
       humanScore++;
-    } else if (userChoice === "paper" && computerChoice === "scissors") {
-      console.log("You win! " + userChoice + " beats " + computerChoice + "!");
+    } else if (humanChoice === "paper" && computerChoice === "scissors") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
       humanScore++;
-    } else if (userChoice === "scissors" && computerChoice === "paper") {
-      console.log("You win! " + userChoice + " beats " + computerChoice + "!");
+    } else if (humanChoice === "scissors" && computerChoice === "paper") {
+      console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
       humanScore++;
     } else {
-      console.log("You lose! " + userChoice + " doesn't beat " + computerChoice);
+      console.log("You lose! " + humanChoice + " doesn't beat " + computerChoice);
       computerScore++;
     }
   }
@@ -91,7 +93,8 @@ function playGame() {
   }
 }
 
+// Start game
 playGame();
+
+// Quit after game loop ends
 console.log("quitting..");
-//console.log(getComputerChoice());
-//console.log(getHumanChoice());
