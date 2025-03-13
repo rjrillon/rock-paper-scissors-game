@@ -1,5 +1,3 @@
-console.log("JS LOADED...");
-
 // Overview:
 // Give user prompt to choose rock, paper, or scissors.
 // Make it round based.
@@ -13,12 +11,10 @@ console.log("JS LOADED...");
 // Declare players score variables
 // Write function to play rounds
 
-let computerScore = 0;
-let humanScore = 0;
-
 function getComputerChoice() {
   let random = Math.floor(Math.random() * 3);
 
+  // Randomize computer choice
   switch (random) {
     case 0:
       return "rock";
@@ -36,39 +32,66 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let choice = prompt("Rock, paper, or scissors?", "");
+  let choice;
+  // Loop until user enters a valid choice
+  while (true) {
+    choice = prompt("Rock, paper, or scissors?", "").toLowerCase();
+    if (choice === "rock" || choice === "paper" || choice === "scissors") {
+      break;
+    } else {
+      console.log("Invalid choice! Please choose rock, paper, or scissors.");
+    }
+  }
   return choice;
 }
 
-function playRound(humanChoice, computerChoice) {
-  // Play a single round
-  // Increment the round winner's score
-  // Log a winner announcement
-  let userChoice = humanChoice.toLowerCase();
+function playGame() {
+  let computerScore = 0;
+  let humanScore = 0;
 
-  if (userChoice === computerChoice) {
-    console.log("You tie! " + userChoice + " is equal to " + computerChoice + "!");
+  function playRound(humanChoice, computerChoice) {
+    // Convert user input to lowercase
+    let userChoice = humanChoice.toLowerCase();
+
+    // Play round
+    if (userChoice === computerChoice) {
+      console.log("It's a tie! Both chose " + userChoice);
+      // No points awarded for tie so return to avoid incrementing scores
+      return;
+    } else if (userChoice === "rock" && computerChoice === "scissors") {
+      console.log("You win! " + userChoice + " beats " + computerChoice + "!");
+      humanScore++;
+    } else if (userChoice === "paper" && computerChoice === "scissors") {
+      console.log("You win! " + userChoice + " beats " + computerChoice + "!");
+      humanScore++;
+    } else if (userChoice === "scissors" && computerChoice === "paper") {
+      console.log("You win! " + userChoice + " beats " + computerChoice + "!");
+      humanScore++;
+    } else {
+      console.log("You lose! " + userChoice + " doesn't beat " + computerChoice);
+      computerScore++;
+    }
+  }
+
+  // Play rounds until one player reaches 3 points
+  while (humanScore < 3 && computerScore < 3) {
     playRound(getHumanChoice(), getComputerChoice());
-  } else if (userChoice === "rock" && computerChoice === "scissors") {
-    console.log("You win! " + userChoice + " beats " + computerChoice + "!");
-    humanScore++;
-  } else if (userChoice === "paper" && computerChoice === "scissors") {
-    console.log("You win! " + userChoice + " beats " + computerChoice + "!");
-    humanScore++;
-  } else if (userChoice === "scissors" && computerChoice === "paper") {
-    console.log("You win! " + userChoice + " beats " + computerChoice + "!");
-    humanScore++;
+    console.log("Score: \n You: " + humanScore + " Computer: " + computerScore);
+  }
+
+  // Game end. Inform user of the final score and who won.
+  if (humanScore > computerScore) {
+    console.log(
+      "Game over! You win! \n Final score: \n You: " + humanScore + " Computer: " + computerScore
+    );
   } else {
-    console.log("You lose! " + userChoice + " doesn't beat " + computerChoice);
-    computerScore++;
+    console.log(
+      "Game over! You lose! \n Final score: \n You: " + humanScore + " Computer: " + computerScore
+    );
   }
 }
 
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
-
-playRound(humanChoice, computerChoice);
-console.log("Score: \n You: " + humanScore + " Computer: " + computerScore);
+playGame();
 console.log("quitting..");
 //console.log(getComputerChoice());
 //console.log(getHumanChoice());
