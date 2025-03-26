@@ -50,47 +50,57 @@ function getHumanChoice() {
   return choice;
 }
 
+let computerScore = 0;
+let humanScore = 0;
+
+function playRound(humanChoice, computerChoice) {
+  // Play round
+  if (humanChoice === computerChoice) {
+    console.log("It's a tie! Both chose " + humanChoice);
+    // No points awarded for tie so return to avoid incrementing scores
+    return;
+  } else if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "paper" && computerChoice === "scissors") ||
+    (humanChoice === "scissors" && computerChoice === "paper")
+  ) {
+    console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
+    humanScore++;
+  } else {
+    console.log("You lose! " + humanChoice + " doesn't beat " + computerChoice);
+    computerScore++;
+  }
+  console.log(`Score: You - ${humanScore} Computer - ${computerScore}`);
+}
+
+// Play rounds until one player reaches 3 points
+// while (humanScore < 3 && computerScore < 3) {
+//   playRound(getHumanChoice(), getComputerChoice());
+//   console.log("Score: \n You: " + humanScore + " Computer: " + computerScore);
+// }
+
 function playGame() {
-  let computerScore = 0;
-  let humanScore = 0;
-
-  function playRound(humanChoice, computerChoice) {
-    // Play round
-    if (humanChoice === computerChoice) {
-      console.log("It's a tie! Both chose " + humanChoice);
-      // No points awarded for tie so return to avoid incrementing scores
-      return;
-    } else if (humanChoice === "rock" && computerChoice === "scissors") {
-      console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
-      humanScore++;
-    } else if (humanChoice === "paper" && computerChoice === "scissors") {
-      console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
-      humanScore++;
-    } else if (humanChoice === "scissors" && computerChoice === "paper") {
-      console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
-      humanScore++;
-    } else {
-      console.log("You lose! " + humanChoice + " doesn't beat " + computerChoice);
-      computerScore++;
-    }
-  }
-
-  // Play rounds until one player reaches 3 points
-  while (humanScore < 3 && computerScore < 3) {
-    playRound(getHumanChoice(), getComputerChoice());
-    console.log("Score: \n You: " + humanScore + " Computer: " + computerScore);
-  }
+  // Event Listeners to buttons
+  document.getElementById("rock").addEventListener("click", () => {
+    playRound("rock", getComputerChoice());
+  });
+  document.getElementById("paper").addEventListener("click", () => {
+    playRound("paper", getComputerChoice());
+  });
+  document.getElementById("scissors").addEventListener("click", () => {
+    playRound("scissors", getComputerChoice());
+  });
 
   // Game end. Inform user of the final score and who won.
-  if (humanScore > computerScore) {
-    console.log(
-      "Game over! You win! \n Final score: \n You: " + humanScore + " Computer: " + computerScore
-    );
-  } else {
-    console.log(
-      "Game over! You lose! \n Final score: \n You: " + humanScore + " Computer: " + computerScore
-    );
-  }
+  // if (humanScore > computerScore) {
+  //   console.log(
+  //     "Game over! You win! \n Final score: \n You: " + humanScore + " Computer: " + computerScore
+  //   );
+  // } else {
+  //   console.log(
+  //     "Game over! You lose! \n Final score: \n You: " + humanScore + " Computer: " + computerScore
+  //   );
+  // }
 }
 
 // Start game
