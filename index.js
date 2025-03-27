@@ -38,9 +38,12 @@ function getComputerChoice() {
 
 let computerScore = 0;
 let humanScore = 0;
+let gameOver = false;
 const results = document.querySelector(".results-container");
 
 function playRound(humanChoice, computerChoice) {
+  if (gameOver) return;
+
   // Play round
   if (humanChoice === computerChoice) {
     results.innerHTML += `It's a tie! Both chose ${computerChoice}. <br>`;
@@ -58,6 +61,14 @@ function playRound(humanChoice, computerChoice) {
     computerScore++;
   }
   results.innerHTML += `Score: You - ${humanScore} Computer - ${computerScore} <br>`;
+
+  if (humanScore == 3) {
+    results.innerHTML += `GAME OVER ... <br> You win! Final score: You - ${humanScore} Computer - ${computerScore}! <br>`;
+    gameOver = true;
+  } else if (computerScore == 3) {
+    results.innerHTML += `GAME OVER ... <br> You lose! Final score: You - ${humanScore} Computer - ${computerScore}! <br>`;
+    gameOver = true;
+  }
 }
 
 function playGame() {
